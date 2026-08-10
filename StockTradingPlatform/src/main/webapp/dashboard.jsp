@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
+<%@ page import="com.tradex.model.User"%>
 
+<%
+User user = (User) session.getAttribute("user");
+
+if (user == null) {
+    response.sendRedirect("index.jsp");
+    return;
+}
+%>
+
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -28,30 +38,32 @@ href="css/style.css">
 
 <div class="layout">
 
-    <%@ include file="components/sidebar.jsp" %>
+    <jsp:include page="components/sidebar.jsp" />
 
     <div class="main">
 
-        <%@ include file="components/navbar.jsp" %>
+        <jsp:include page="components/navbar.jsp" />
 
-		<main class="dashboard">
+        <main class="dashboard">
 
-		    <%@ include file="components/welcome.jsp" %>
-		
-		    <%@ include file="components/statistics.jsp" %>
-		
-		    <%@ include file="components/market.jsp" %>
-		
-		    <%@ include file="components/trending.jsp" %>
-		
-		    <%@ include file="components/portfolio.jsp" %>
-		
-		</main>
-        <%@ include file="components/footer.jsp" %>
+            <jsp:include page="components/welcome.jsp" />
+
+            <jsp:include page="components/statistics.jsp" />
+
+            <jsp:include page="components/market.jsp" />
+
+            <jsp:include page="components/trending.jsp" />
+
+			<jsp:include page="components/portfolioPreview.jsp" />
+        </main>
+
+        <jsp:include page="components/footer.jsp" />
 
     </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="js/script.js"></script>
 

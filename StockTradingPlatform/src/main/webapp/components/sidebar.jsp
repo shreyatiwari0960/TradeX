@@ -1,103 +1,202 @@
 <aside class="sidebar">
 
-<div class="logo">
+    <div class="logo">
 
-<i class="fa-solid fa-chart-line"></i>
+        <i class="fa-solid fa-chart-line"></i>
 
-<h2>TradeX</h2>
+        <h2>TradeX</h2>
 
-</div>
+    </div>
 
-<ul>
 
-<li class="active">
+    <ul>
 
-<i class="fa-solid fa-house"></i>
 
-Dashboard
+        <!-- DASHBOARD -->
 
-</li>
+        <li class="<%= "dashboard".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
 
-<li>
+            <a href="MarketServlet">
 
-<i class="fa-solid fa-wallet"></i>
+                <i class="fa-solid fa-house"></i>
 
-Portfolio
+                <span>Dashboard</span>
 
-</li>
+            </a>
 
-<li>
+        </li>
 
-<i class="fa-solid fa-chart-column"></i>
 
-Market
+        <!-- PORTFOLIO -->
 
-</li>
+        <li class="<%= "portfolio".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
 
-<li>
+            <a href="PortfolioServlet">
 
-<i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-wallet"></i>
 
-Watchlist
+                <span>Portfolio</span>
 
-</li>
+            </a>
 
-<li>
+        </li>
 
-<i class="fa-solid fa-arrow-trend-up"></i>
 
-Buy Stocks
+        <!-- MARKET -->
 
-</li>
+        <li class="<%= "market".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
 
-<li>
+            <a href="MarketServlet">
 
-<i class="fa-solid fa-arrow-trend-down"></i>
+                <i class="fa-solid fa-chart-column"></i>
 
-Sell Stocks
+                <span>Market</span>
 
-</li>
+            </a>
 
-<li>
+        </li>
 
-<i class="fa-solid fa-clock-rotate-left"></i>
 
-Transactions
+        <!-- WATCHLIST -->
 
-</li>
+        <li class="<%= "watchlist".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
 
-<li>
+            <a href="#">
 
-<i class="fa-solid fa-chart-pie"></i>
+                <i class="fa-solid fa-star"></i>
 
-Analytics
+                <span>Watchlist</span>
 
-</li>
+            </a>
 
-<li>
+        </li>
 
-<i class="fa-solid fa-user"></i>
 
-Profile
+        <!-- BUY STOCKS -->
 
-</li>
+        <li class="<%= "buy".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
 
-<li>
+            <a href="MarketServlet">
 
-<i class="fa-solid fa-gear"></i>
+                <i class="fa-solid fa-arrow-trend-up"></i>
 
-Settings
+                <span>Buy Stocks</span>
 
-</li>
+            </a>
 
-<li>
+        </li>
 
-<i class="fa-solid fa-right-from-bracket"></i>
 
-Logout
+        <!-- SELL STOCKS -->
 
-</li>
+        <li class="<%= "sell".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
 
-</ul>
+            <a href="#">
+
+                <i class="fa-solid fa-arrow-trend-down"></i>
+
+                <span>Sell Stocks</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- TRANSACTIONS -->
+
+        <li class="<%= "transactions".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
+
+            <a href="#">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                <span>Transactions</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- ANALYTICS -->
+
+        <li class="<%= "analytics".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
+
+            <a href="#">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <span>Analytics</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- PROFILE -->
+
+        <li class="<%= "profile".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
+
+            <a href="#">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- SETTINGS -->
+
+        <li class="<%= "settings".equals(
+                    request.getAttribute("activePage"))
+                    ? "active" : "" %>">
+
+            <a href="#">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- LOGOUT -->
+
+        <li>
+
+            <a href="LogoutServlet">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </li>
+
+
+    </ul>
 
 </aside>

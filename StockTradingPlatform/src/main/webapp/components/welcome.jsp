@@ -1,19 +1,23 @@
+<%@ page import="com.tradex.model.User"%>
+
+<%
+User user = (User) session.getAttribute("user");
+%>
+
 <section class="hero">
 
     <div class="hero-left">
 
-        <h1>
-
-            Welcome Back,
-
-            <span>Shreya.</span>
-
-        </h1>
-
+       <h1>
+		    Welcome Back,<br>
+		    <span><%= user.getFullName() %></span> 
+		</h1>
+		
         <p>
 
             Manage your investments with confidence.
-            Track live market trends, monitor your portfolio,
+            Track live market trends,
+            monitor your portfolio,
             and make smarter trading decisions every day.
 
         </p>
