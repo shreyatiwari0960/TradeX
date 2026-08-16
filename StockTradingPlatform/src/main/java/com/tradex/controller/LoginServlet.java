@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 
             session.setAttribute("user", user);
 
-            response.sendRedirect("MarketServlet");
+            response.sendRedirect("DashboardServlet");
         } else {
 
             response.sendRedirect("index.jsp?login=failed");

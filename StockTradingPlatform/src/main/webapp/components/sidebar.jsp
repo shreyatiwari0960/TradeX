@@ -1,5 +1,9 @@
 <aside class="sidebar">
 
+    <!-- =========================
+         LOGO
+    ========================== -->
+
     <div class="logo">
 
         <i class="fa-solid fa-chart-line"></i>
@@ -9,16 +13,19 @@
     </div>
 
 
-    <ul>
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
 
+    <ul>
 
         <!-- DASHBOARD -->
 
-        <li class="<%= "dashboard".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "dashboard".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
-            <a href="MarketServlet">
+            <a href="DashboardServlet">
 
                 <i class="fa-solid fa-house"></i>
 
@@ -31,9 +38,9 @@
 
         <!-- PORTFOLIO -->
 
-        <li class="<%= "portfolio".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "portfolio".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
             <a href="PortfolioServlet">
 
@@ -48,9 +55,9 @@
 
         <!-- MARKET -->
 
-        <li class="<%= "market".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "market".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
             <a href="MarketServlet">
 
@@ -65,11 +72,11 @@
 
         <!-- WATCHLIST -->
 
-        <li class="<%= "watchlist".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "watchlist".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
-            <a href="#">
+            <a href="WatchlistServlet">
 
                 <i class="fa-solid fa-star"></i>
 
@@ -82,9 +89,9 @@
 
         <!-- BUY STOCKS -->
 
-        <li class="<%= "buy".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "buy".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
             <a href="MarketServlet">
 
@@ -99,9 +106,9 @@
 
         <!-- SELL STOCKS -->
 
-        <li class="<%= "sell".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "sell".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
             <a href="#">
 
@@ -116,9 +123,9 @@
 
         <!-- TRANSACTIONS -->
 
-        <li class="<%= "transactions".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "transactions".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
             <a href="#">
 
@@ -133,9 +140,9 @@
 
         <!-- ANALYTICS -->
 
-        <li class="<%= "analytics".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "analytics".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
             <a href="#">
 
@@ -150,9 +157,9 @@
 
         <!-- PROFILE -->
 
-        <li class="<%= "profile".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "profile".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
             <a href="#">
 
@@ -167,9 +174,9 @@
 
         <!-- SETTINGS -->
 
-        <li class="<%= "settings".equals(
-                    request.getAttribute("activePage"))
-                    ? "active" : "" %>">
+        <li class="<%= "settings".equals(request.getAttribute("activePage"))
+                    ? "active"
+                    : "" %>">
 
             <a href="#">
 
@@ -195,7 +202,6 @@
             </a>
 
         </li>
-
 
     </ul>
 
