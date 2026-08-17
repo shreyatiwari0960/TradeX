@@ -1,299 +1,211 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java"
+    contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ page import="com.tradex.model.User"%>
+
+<%
+    User user = (User) session.getAttribute("user");
+
+    if (user == null) {
+        response.sendRedirect("index.jsp");
+        return;
+    }
+
+    request.setAttribute("activePage", "market");
+%>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Market | TradeX</title>
 
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
+    <!-- Bootstrap -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet">
 
     <!-- Font Awesome -->
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-    <!-- Main TradeX CSS -->
+    <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
 
     <style>
 
-        /* =====================================================
-           TRADEX MARKET PAGE
-           ===================================================== */
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #f4f7fc;
-            color: #111827;
-        }
+        /* =========================
+           MARKET PAGE
+        ========================== */
 
         .market-page {
-            min-height: 100vh;
+            padding: 30px;
             background: #f4f7fc;
+            min-height: calc(100vh - 80px);
         }
-
-        /* ================= HEADER ================= */
 
         .market-header {
             background: #ffffff;
-            padding: 28px 40px 20px;
-            border-bottom: 1px solid #e8edf5;
+            border-radius: 18px;
+            padding: 28px 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 25px rgba(30, 50, 90, 0.06);
         }
 
-        .market-header-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 25px;
-        }
-
-        .market-title-section h1 {
-            font-size: 32px;
+        .market-header h1 {
+            margin: 0;
+            font-size: 34px;
             font-weight: 800;
-            color: #111827;
-            display: flex;
-            align-items: center;
-            gap: 13px;
+            color: #101828;
         }
 
-        .market-title-section h1 i {
-            color: #2563eb;
-            font-size: 29px;
+        .market-header h1 i {
+            color: #2864e6;
+            margin-right: 10px;
         }
 
-        .market-title-section p {
-            margin-top: 7px;
+        .market-header p {
+            margin: 8px 0 0;
             color: #64748b;
-            font-size: 14px;
+            font-size: 15px;
         }
 
-        /* ================= SEARCH ================= */
-
-        .market-search {
-            width: 360px;
-            position: relative;
-        }
-
-        .market-search i {
-            position: absolute;
-            left: 17px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-        }
-
-        .market-search input {
-            width: 100%;
-            height: 48px;
-            border: none;
-            outline: none;
-            border-radius: 13px;
-            background: #f1f5f9;
-            padding: 0 18px 0 46px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 13px;
-            color: #1e293b;
-        }
-
-        .market-search input:focus {
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-        }
-
-        /* ================= CONTENT ================= */
-
-        .market-content {
-            padding: 30px 40px 50px;
-        }
-
-        /* ================= MARKET SUMMARY ================= */
+        /* SUMMARY CARDS */
 
         .market-summary {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 18px;
+            margin-bottom: 25px;
         }
 
-        .summary-card {
+        .market-card {
+            position: relative;
+            overflow: hidden;
             background: #ffffff;
             border-radius: 18px;
-            padding: 22px;
-            border: 1px solid #edf1f7;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+            padding: 24px;
+            min-height: 145px;
+            box-shadow: 0 8px 25px rgba(30, 50, 90, 0.07);
         }
 
-        .summary-card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 17px;
+        .market-card::after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            right: -25px;
+            bottom: -30px;
+            background: #f1f5fb;
         }
 
-        .summary-icon {
-            width: 46px;
-            height: 46px;
-            border-radius: 13px;
+        .market-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #eff6ff;
-            color: #2563eb;
-            font-size: 19px;
+            background: #edf4ff;
+            color: #2864e6;
+            font-size: 18px;
+            margin-bottom: 22px;
         }
 
-        .summary-card:nth-child(2) .summary-icon {
-            background: #ecfdf5;
-            color: #16a34a;
-        }
-
-        .summary-card:nth-child(3) .summary-icon {
-            background: #fff7ed;
-            color: #ea580c;
-        }
-
-        .summary-card:nth-child(4) .summary-icon {
-            background: #f5f3ff;
-            color: #7c3aed;
-        }
-
-        .summary-status {
-            font-size: 11px;
-            font-weight: 600;
-            color: #16a34a;
-            background: #ecfdf5;
-            padding: 5px 9px;
-            border-radius: 20px;
-        }
-
-        .summary-card h3 {
+        .market-label {
+            display: block;
             font-size: 12px;
-            text-transform: uppercase;
+            font-weight: 700;
             letter-spacing: 0.5px;
             color: #64748b;
-            font-weight: 600;
-            margin-bottom: 7px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
         }
 
-        .summary-card .summary-value {
-            font-size: 22px;
-            font-weight: 800;
-            color: #111827;
-        }
-
-        /* ================= MARKET SECTION ================= */
-
-        .market-section {
-            background: #ffffff;
-            border-radius: 20px;
-            border: 1px solid #edf1f7;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
-            overflow: hidden;
-        }
-
-        .market-section-header {
-            padding: 24px 26px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #edf1f7;
-        }
-
-        .market-section-header h2 {
+        .market-value {
             font-size: 20px;
+            font-weight: 800;
+            color: #101828;
+        }
+
+        .market-value.green {
+            color: #16a34a;
+        }
+
+        .market-status {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            z-index: 2;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #ecfdf3;
+            color: #16a34a;
+            font-size: 11px;
             font-weight: 700;
-            color: #111827;
         }
 
-        .market-section-header p {
-            margin-top: 4px;
-            font-size: 12px;
+        /* STOCK TABLE */
+
+        .stocks-section {
+            background: #ffffff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(30, 50, 90, 0.07);
+        }
+
+        .stocks-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid #e8edf5;
+        }
+
+        .stocks-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #101828;
+        }
+
+        .stocks-header p {
+            margin: 6px 0 0;
             color: #64748b;
+            font-size: 13px;
         }
 
-        .market-filter {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-        }
-
-        .filter-btn {
-            border: none;
-            background: #f1f5f9;
-            color: #475569;
-            padding: 9px 15px;
-            border-radius: 9px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .filter-btn.active {
-            background: #2563eb;
-            color: #ffffff;
-        }
-
-        /* ================= TABLE ================= */
-
-        .market-table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        .market-table {
+        .stocks-table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .market-table thead {
+        .stocks-table th {
+            padding: 15px 24px;
             background: #f8fafc;
-        }
-
-        .market-table th {
-            text-align: left;
-            padding: 15px 20px;
-            font-size: 11px;
             color: #64748b;
-            font-weight: 700;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            white-space: nowrap;
+            letter-spacing: 0.5px;
+            text-align: left;
         }
 
-        .market-table td {
-            padding: 17px 20px;
-            border-top: 1px solid #f1f5f9;
+        .stocks-table td {
+            padding: 16px 24px;
+            border-top: 1px solid #edf1f6;
             font-size: 13px;
             color: #334155;
-            white-space: nowrap;
         }
 
-        .market-table tbody tr {
-            transition: background 0.2s ease;
-        }
-
-        .market-table tbody tr:hover {
+        .stocks-table tbody tr:hover {
             background: #f8fbff;
         }
-
-        /* ================= STOCK NAME ================= */
 
         .stock-info {
             display: flex;
@@ -302,179 +214,102 @@
         }
 
         .stock-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 11px;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #edf4ff;
+            color: #2864e6;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #eff6ff;
-            color: #2563eb;
-            font-size: 15px;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .stock-name {
-            font-size: 13px;
+            display: block;
             font-weight: 700;
-            color: #111827;
+            color: #334155;
         }
 
         .stock-symbol {
             display: block;
-            margin-top: 2px;
-            font-size: 10px;
+            margin-top: 3px;
+            font-size: 11px;
             color: #94a3b8;
         }
 
-        .price {
-            font-weight: 700;
+        .stock-price {
+            font-weight: 800;
             color: #111827;
         }
 
-        /* ================= CHANGE ================= */
-
         .positive {
-            color: #16a34a !important;
+            display: inline-block;
+            padding: 6px 9px;
+            border-radius: 7px;
+            background: #ecfdf3;
+            color: #16a34a;
             font-weight: 700;
+            font-size: 11px;
         }
 
         .negative {
-            color: #dc2626 !important;
-            font-weight: 700;
-        }
-
-        .change-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+            display: inline-block;
             padding: 6px 9px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        .change-pill.positive-bg {
-            background: #ecfdf5;
-            color: #16a34a;
-        }
-
-        .change-pill.negative-bg {
+            border-radius: 7px;
             background: #fef2f2;
             color: #dc2626;
-        }
-
-        /* ================= ACTIONS ================= */
-
-        .stock-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: 700;
+            font-size: 11px;
         }
 
         .buy-btn {
             border: none;
-            background: #2563eb;
+            background: #2864e6;
             color: #ffffff;
-            padding: 8px 14px;
+            padding: 8px 16px;
             border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
         }
 
         .buy-btn:hover {
             background: #1d4ed8;
-            transform: translateY(-1px);
         }
 
-        .watch-btn {
-            width: 34px;
-            height: 34px;
-            border: 1px solid #e2e8f0;
-            background: #ffffff;
-            color: #64748b;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+        /* RESPONSIVE */
 
-        .watch-btn:hover {
-            color: #f59e0b;
-            border-color: #f59e0b;
-            background: #fffbeb;
-        }
-
-        /* ================= EMPTY / DEMO ================= */
-
-        .market-empty {
-            padding: 60px 20px;
-            text-align: center;
-            color: #64748b;
-        }
-
-        .market-empty i {
-            font-size: 42px;
-            color: #cbd5e1;
-            margin-bottom: 15px;
-        }
-
-        .market-empty h3 {
-            font-size: 18px;
-            color: #334155;
-            margin-bottom: 6px;
-        }
-
-        .market-empty p {
-            font-size: 13px;
-        }
-
-        /* ================= RESPONSIVE ================= */
-
-        @media (max-width: 1200px) {
+        @media (max-width: 1100px) {
 
             .market-summary {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .market-header-top {
-                align-items: flex-start;
-            }
-
-            .market-search {
-                width: 300px;
-            }
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 700px) {
 
-            .market-header {
-                padding: 22px 20px;
-            }
-
-            .market-header-top {
-                flex-direction: column;
-            }
-
-            .market-search {
-                width: 100%;
-            }
-
-            .market-content {
-                padding: 22px 20px 40px;
+            .market-page {
+                padding: 18px;
             }
 
             .market-summary {
                 grid-template-columns: 1fr;
             }
 
-            .market-section-header {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 15px;
+            .stocks-section {
+                overflow-x: auto;
             }
+
+            .stocks-table {
+                min-width: 700px;
+            }
+
+            .market-header h1 {
+                font-size: 28px;
+            }
+
         }
 
     </style>
@@ -483,17 +318,22 @@
 
 <body>
 
-<div class="market-page">
+<div class="layout">
 
-    <!-- =====================================================
-         MARKET HEADER
-         ===================================================== -->
+    <!-- SIDEBAR -->
+    <jsp:include page="components/sidebar.jsp" />
 
-    <section class="market-header">
+    <!-- MAIN -->
+    <div class="main">
 
-        <div class="market-header-top">
+        <!-- NAVBAR -->
+        <jsp:include page="components/navbar.jsp" />
 
-            <div class="market-title-section">
+        <!-- MARKET -->
+        <main class="market-page">
+
+            <!-- HEADER -->
+            <section class="market-header">
 
                 <h1>
                     <i class="fa-solid fa-chart-line"></i>
@@ -501,197 +341,127 @@
                 </h1>
 
                 <p>
-                    Explore stocks, track market movements, and find your next investment.
+                    Explore stocks, track market movements,
+                    and find your next investment.
                 </p>
 
-            </div>
-
-            <div class="market-search">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    id="stockSearch"
-                    placeholder="Search stocks, companies..."
-                    autocomplete="off">
-
-            </div>
-
-        </div>
-
-    </section>
+            </section>
 
 
-    <!-- =====================================================
-         MARKET CONTENT
-         ===================================================== -->
+            <!-- SUMMARY -->
+            <section class="market-summary">
 
-    <main class="market-content">
+                <div class="market-card">
 
-
-        <!-- ================= SUMMARY CARDS ================= -->
-
-        <section class="market-summary">
-
-            <div class="summary-card">
-
-                <div class="summary-card-top">
-
-                    <div class="summary-icon">
+                    <div class="market-icon">
                         <i class="fa-solid fa-chart-line"></i>
                     </div>
 
-                    <span class="summary-status">
-                        <i class="fa-solid fa-circle"></i>
-                        Live
+                    <span class="market-status">
+                        ● Live
                     </span>
 
+                    <span class="market-label">
+                        Market Status
+                    </span>
+
+                    <div class="market-value">
+                        Market Open
+                    </div>
+
                 </div>
 
-                <h3>Market Status</h3>
 
-                <div class="summary-value">
-                    Market Open
-                </div>
+                <div class="market-card">
 
-            </div>
-
-
-            <div class="summary-card">
-
-                <div class="summary-card-top">
-
-                    <div class="summary-icon">
+                    <div class="market-icon">
                         <i class="fa-solid fa-arrow-trend-up"></i>
                     </div>
 
-                    <span class="summary-status">
+                    <span class="market-status">
                         Today
                     </span>
 
+                    <span class="market-label">
+                        Market Trend
+                    </span>
+
+                    <div class="market-value green">
+                        Bullish
+                    </div>
+
                 </div>
 
-                <h3>Market Trend</h3>
 
-                <div class="summary-value positive">
-                    Bullish
-                </div>
+                <div class="market-card">
 
-            </div>
-
-
-            <div class="summary-card">
-
-                <div class="summary-card-top">
-
-                    <div class="summary-icon">
+                    <div class="market-icon">
                         <i class="fa-solid fa-chart-column"></i>
                     </div>
 
-                    <span class="summary-status">
+                    <span class="market-status">
                         NSE
                     </span>
 
+                    <span class="market-label">
+                        Market Index
+                    </span>
+
+                    <div class="market-value">
+                        NIFTY 50
+                    </div>
+
                 </div>
 
-                <h3>Market Index</h3>
 
-                <div class="summary-value">
-                    NIFTY 50
-                </div>
+                <div class="market-card">
 
-            </div>
-
-
-            <div class="summary-card">
-
-                <div class="summary-card-top">
-
-                    <div class="summary-icon">
+                    <div class="market-icon">
                         <i class="fa-solid fa-layer-group"></i>
                     </div>
 
-                    <span class="summary-status">
+                    <span class="market-status">
                         Available
                     </span>
 
+                    <span class="market-label">
+                        Listed Stocks
+                    </span>
+
+                    <div class="market-value">
+                        5 Stocks
+                    </div>
+
                 </div>
 
-                <h3>Listed Stocks</h3>
-
-                <div class="summary-value">
-                    5 Stocks
-                </div>
-
-            </div>
-
-        </section>
+            </section>
 
 
-        <!-- =====================================================
-             STOCK MARKET TABLE
-             ===================================================== -->
+            <!-- STOCKS -->
+            <section class="stocks-section">
 
-        <section class="market-section">
-
-            <div class="market-section-header">
-
-                <div>
+                <div class="stocks-header">
 
                     <h2>Stocks</h2>
 
                     <p>
-                        Track available stocks and their current market performance.
+                        Track available stocks and their current
+                        market performance.
                     </p>
 
                 </div>
 
 
-                <div class="market-filter">
-
-                    <button
-                        type="button"
-                        class="filter-btn active"
-                        onclick="filterStocks('all', this)">
-                        All
-                    </button>
-
-                    <button
-                        type="button"
-                        class="filter-btn"
-                        onclick="filterStocks('gainers', this)">
-                        Gainers
-                    </button>
-
-                    <button
-                        type="button"
-                        class="filter-btn"
-                        onclick="filterStocks('losers', this)">
-                        Losers
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div class="market-table-wrapper">
-
-                <table class="market-table">
+                <table class="stocks-table">
 
                     <thead>
 
                         <tr>
 
                             <th>Stock</th>
-
                             <th>Price</th>
-
                             <th>Change</th>
-
                             <th>Market</th>
-
                             <th>Action</th>
 
                         </tr>
@@ -699,12 +469,10 @@
                     </thead>
 
 
-                    <tbody id="stockTableBody">
+                    <tbody>
 
-                        <!-- Stock rows will be connected to your
-                             existing MarketServlet data in Part 2 -->
 
-                        <tr class="stock-row" data-change="positive">
+                        <tr>
 
                             <td>
 
@@ -715,7 +483,6 @@
                                     </div>
 
                                     <div>
-
                                         <span class="stock-name">
                                             Bajaj Finance
                                         </span>
@@ -723,55 +490,34 @@
                                         <span class="stock-symbol">
                                             BAJFINANCE
                                         </span>
-
                                     </div>
 
                                 </div>
 
                             </td>
 
-                            <td class="price">
-                                ₹ 9,350.00
+                            <td class="stock-price">
+                                ₹9,350.00
                             </td>
 
                             <td>
-                                <span class="change-pill positive-bg">
-                                    <i class="fa-solid fa-arrow-up"></i>
-                                    +1.24%
+                                <span class="positive">
+                                    ↑ +1.24%
                                 </span>
                             </td>
 
-                            <td>
-                                NSE
-                            </td>
+                            <td>NSE</td>
 
                             <td>
-
-                                <div class="stock-actions">
-
-                                    <button
-                                        class="buy-btn"
-                                        type="button">
-                                        Buy
-                                    </button>
-
-                                    <button
-                                        class="watch-btn"
-                                        type="button"
-                                        title="Add to Watchlist">
-
-                                        <i class="fa-regular fa-star"></i>
-
-                                    </button>
-
-                                </div>
-
+                                <button class="buy-btn">
+                                    Buy
+                                </button>
                             </td>
 
                         </tr>
 
 
-                        <tr class="stock-row" data-change="negative">
+                        <tr>
 
                             <td>
 
@@ -782,7 +528,6 @@
                                     </div>
 
                                     <div>
-
                                         <span class="stock-name">
                                             Dr Reddy's Laboratories
                                         </span>
@@ -790,57 +535,34 @@
                                         <span class="stock-symbol">
                                             DRREDDY
                                         </span>
-
                                     </div>
 
                                 </div>
 
                             </td>
 
-                            <td class="price">
-                                ₹ 6,750.00
+                            <td class="stock-price">
+                                ₹6,750.00
                             </td>
 
                             <td>
-
-                                <span class="change-pill negative-bg">
-                                    <i class="fa-solid fa-arrow-down"></i>
-                                    -0.82%
+                                <span class="negative">
+                                    ↓ -0.82%
                                 </span>
-
                             </td>
 
-                            <td>
-                                NSE
-                            </td>
+                            <td>NSE</td>
 
                             <td>
-
-                                <div class="stock-actions">
-
-                                    <button
-                                        class="buy-btn"
-                                        type="button">
-                                        Buy
-                                    </button>
-
-                                    <button
-                                        class="watch-btn"
-                                        type="button"
-                                        title="Add to Watchlist">
-
-                                        <i class="fa-regular fa-star"></i>
-
-                                    </button>
-
-                                </div>
-
+                                <button class="buy-btn">
+                                    Buy
+                                </button>
                             </td>
 
                         </tr>
 
 
-                        <tr class="stock-row" data-change="positive">
+                        <tr>
 
                             <td>
 
@@ -851,7 +573,6 @@
                                     </div>
 
                                     <div>
-
                                         <span class="stock-name">
                                             Reliance Industries
                                         </span>
@@ -859,57 +580,34 @@
                                         <span class="stock-symbol">
                                             RELIANCE
                                         </span>
-
                                     </div>
 
                                 </div>
 
                             </td>
 
-                            <td class="price">
-                                ₹ 3,100.00
+                            <td class="stock-price">
+                                ₹3,100.00
                             </td>
 
                             <td>
-
-                                <span class="change-pill positive-bg">
-                                    <i class="fa-solid fa-arrow-up"></i>
-                                    +0.65%
+                                <span class="positive">
+                                    ↑ +0.65%
                                 </span>
-
                             </td>
 
-                            <td>
-                                NSE
-                            </td>
+                            <td>NSE</td>
 
                             <td>
-
-                                <div class="stock-actions">
-
-                                    <button
-                                        class="buy-btn"
-                                        type="button">
-                                        Buy
-                                    </button>
-
-                                    <button
-                                        class="watch-btn"
-                                        type="button"
-                                        title="Add to Watchlist">
-
-                                        <i class="fa-regular fa-star"></i>
-
-                                    </button>
-
-                                </div>
-
+                                <button class="buy-btn">
+                                    Buy
+                                </button>
                             </td>
 
                         </tr>
 
 
-                        <tr class="stock-row" data-change="negative">
+                        <tr>
 
                             <td>
 
@@ -920,7 +618,6 @@
                                     </div>
 
                                     <div>
-
                                         <span class="stock-name">
                                             HDFC Bank
                                         </span>
@@ -928,57 +625,34 @@
                                         <span class="stock-symbol">
                                             HDFCBANK
                                         </span>
-
                                     </div>
 
                                 </div>
 
                             </td>
 
-                            <td class="price">
-                                ₹ 1,715.00
+                            <td class="stock-price">
+                                ₹1,715.00
                             </td>
 
                             <td>
-
-                                <span class="change-pill negative-bg">
-                                    <i class="fa-solid fa-arrow-down"></i>
-                                    -0.31%
+                                <span class="negative">
+                                    ↓ -0.31%
                                 </span>
-
                             </td>
 
-                            <td>
-                                NSE
-                            </td>
+                            <td>NSE</td>
 
                             <td>
-
-                                <div class="stock-actions">
-
-                                    <button
-                                        class="buy-btn"
-                                        type="button">
-                                        Buy
-                                    </button>
-
-                                    <button
-                                        class="watch-btn"
-                                        type="button"
-                                        title="Add to Watchlist">
-
-                                        <i class="fa-regular fa-star"></i>
-
-                                    </button>
-
-                                </div>
-
+                                <button class="buy-btn">
+                                    Buy
+                                </button>
                             </td>
 
                         </tr>
 
 
-                        <tr class="stock-row" data-change="positive">
+                        <tr>
 
                             <td>
 
@@ -989,7 +663,6 @@
                                     </div>
 
                                     <div>
-
                                         <span class="stock-name">
                                             Tata Consultancy Services
                                         </span>
@@ -997,51 +670,28 @@
                                         <span class="stock-symbol">
                                             TCS
                                         </span>
-
                                     </div>
 
                                 </div>
 
                             </td>
 
-                            <td class="price">
-                                ₹ 3,550.00
+                            <td class="stock-price">
+                                ₹3,550.00
                             </td>
 
                             <td>
-
-                                <span class="change-pill positive-bg">
-                                    <i class="fa-solid fa-arrow-up"></i>
-                                    +1.43%
+                                <span class="positive">
+                                    ↑ +1.43%
                                 </span>
-
                             </td>
 
-                            <td>
-                                NSE
-                            </td>
+                            <td>NSE</td>
 
                             <td>
-
-                                <div class="stock-actions">
-
-                                    <button
-                                        class="buy-btn"
-                                        type="button">
-                                        Buy
-                                    </button>
-
-                                    <button
-                                        class="watch-btn"
-                                        type="button"
-                                        title="Add to Watchlist">
-
-                                        <i class="fa-regular fa-star"></i>
-
-                                    </button>
-
-                                </div>
-
+                                <button class="buy-btn">
+                                    Buy
+                                </button>
                             </td>
 
                         </tr>
@@ -1050,124 +700,23 @@
 
                 </table>
 
-            </div>
+            </section>
 
-        </section>
+        </main>
 
-    </main>
+        <!-- FOOTER -->
+        <jsp:include page="components/footer.jsp" />
+
+    </div>
 
 </div>
 
-
-<script>
-
-    /* ===============================
-       STOCK SEARCH
-       =============================== */
-
-    const searchInput = document.getElementById("stockSearch");
-
-    searchInput.addEventListener("input", function () {
-
-        const searchValue =
-            this.value.toLowerCase().trim();
-
-        const rows =
-            document.querySelectorAll(".stock-row");
-
-        rows.forEach(function (row) {
-
-            const text =
-                row.innerText.toLowerCase();
-
-            row.style.display =
-                text.includes(searchValue)
-                    ? ""
-                    : "none";
-
-        });
-
-    });
-
-
-    /* ===============================
-       STOCK FILTER
-       =============================== */
-
-    function filterStocks(type, button) {
-
-        const buttons =
-            document.querySelectorAll(".filter-btn");
-
-        buttons.forEach(function (btn) {
-            btn.classList.remove("active");
-        });
-
-        button.classList.add("active");
-
-        const rows =
-            document.querySelectorAll(".stock-row");
-
-        rows.forEach(function (row) {
-
-            const change =
-                row.getAttribute("data-change");
-
-            if (type === "all") {
-                row.style.display = "";
-            }
-
-            else if (type === "gainers") {
-                row.style.display =
-                    change === "positive" ? "" : "none";
-            }
-
-            else if (type === "losers") {
-                row.style.display =
-                    change === "negative" ? "" : "none";
-            }
-
-        });
-
-    }
-
-
-    /* ===============================
-       WATCHLIST BUTTON
-       =============================== */
-
-    document.querySelectorAll(".watch-btn").forEach(function (button) {
-
-        button.addEventListener("click", function () {
-
-            const icon =
-                this.querySelector("i");
-
-            if (icon.classList.contains("fa-regular")) {
-
-                icon.classList.remove("fa-regular");
-                icon.classList.add("fa-solid");
-
-                this.style.color = "#f59e0b";
-                this.style.borderColor = "#f59e0b";
-                this.style.background = "#fffbeb";
-
-            } else {
-
-                icon.classList.remove("fa-solid");
-                icon.classList.add("fa-regular");
-
-                this.style.color = "";
-                this.style.borderColor = "";
-                this.style.background = "";
-
-            }
-
-        });
-
-    });
-
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
 
+<script src="js/script.js"></script>
+
 </body>
+
 </html>

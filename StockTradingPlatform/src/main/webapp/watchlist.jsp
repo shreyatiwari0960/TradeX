@@ -1,147 +1,202 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java"
+    contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ page import="com.tradex.model.User"%>
+
+<%
+    User user = (User) session.getAttribute("user");
+
+    if (user == null) {
+        response.sendRedirect("index.jsp");
+        return;
+    }
+
+    request.setAttribute("activePage", "watchlist");
+%>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Watchlist | TradeX</title>
 
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <link rel="stylesheet" href="css/style.css">
+          href="css/style.css">
 
     <style>
 
-        body {
-            background: #f4f7fb;
-            font-family: Arial, sans-serif;
-        }
+        /* =========================
+           WATCHLIST PAGE
+        ========================== */
 
         .watchlist-page {
-            margin-left: 210px;
             padding: 30px;
+            background: #f4f7fc;
+            min-height: calc(100vh - 80px);
         }
 
-        .page-header {
-            background: white;
-            padding: 25px 30px;
+        .watchlist-hero {
+            background: #ffffff;
             border-radius: 18px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 28px 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 25px rgba(30, 50, 90, 0.06);
         }
 
-        .page-header h1 {
-            font-weight: 700;
-            color: #172033;
-            margin-bottom: 8px;
-        }
-
-        .page-header p {
-            color: #718096;
-            margin: 0;
-        }
-
-        .watchlist-card {
-            background: white;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-
-        .stock-row {
+        .watchlist-title {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 18px 10px;
-            border-bottom: 1px solid #edf0f5;
+            gap: 12px;
+            margin: 0;
+            color: #101828;
+            font-size: 34px;
+            font-weight: 800;
         }
 
-        .stock-row:last-child {
+        .watchlist-title i {
+            color: #2864e6;
+        }
+
+        .watchlist-subtitle {
+            margin: 8px 0 0;
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .watchlist-box {
+            background: #ffffff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(30, 50, 90, 0.07);
+        }
+
+        .watchlist-box-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid #e8edf5;
+        }
+
+        .watchlist-box-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #101828;
+        }
+
+        .watchlist-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 100px;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 28px;
+            border-bottom: 1px solid #edf1f6;
+        }
+
+        .watchlist-row:last-child {
             border-bottom: none;
         }
 
-        .stock-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .watchlist-row:hover {
+            background: #f8fbff;
         }
 
-        .stock-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            background: #eef4ff;
-            color: #2463eb;
+        .watch-stock {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .watch-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 11px;
+            background: #edf4ff;
+            color: #2864e6;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 800;
+        }
+
+        .watch-name {
+            display: block;
             font-weight: 700;
+            color: #111827;
         }
 
-        .stock-name {
-            font-weight: 700;
-            color: #172033;
-            margin-bottom: 3px;
+        .watch-symbol {
+            display: block;
+            margin-top: 3px;
+            color: #94a3b8;
+            font-size: 12px;
         }
 
-        .stock-symbol {
-            color: #8a94a6;
-            font-size: 13px;
+        .watch-price {
+            font-weight: 800;
+            color: #111827;
         }
 
-        .stock-price {
-            font-weight: 700;
-            color: #172033;
-        }
-
-        .positive {
+        .watch-change-up {
             color: #16a34a;
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        .negative {
+        .watch-change-down {
             color: #dc2626;
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        .btn-buy {
-            background: #2563eb;
-            color: white;
+        .watch-buy {
             border: none;
-            border-radius: 8px;
-            padding: 8px 16px;
-            font-weight: 600;
-        }
-
-        .btn-buy:hover {
-            background: #1d4ed8;
+            background: #2864e6;
             color: white;
+            border-radius: 8px;
+            padding: 9px 18px;
+            font-weight: 700;
+            cursor: pointer;
         }
 
-        .empty-message {
-            text-align: center;
-            padding: 50px;
-            color: #718096;
+        .watch-buy:hover {
+            background: #1d4ed8;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 850px) {
+
             .watchlist-page {
-                margin-left: 0;
-                padding: 20px;
+                padding: 18px;
             }
 
-            .stock-row {
-                flex-wrap: wrap;
-                gap: 15px;
+            .watchlist-title {
+                font-size: 28px;
             }
+
+            .watchlist-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .watchlist-row {
+                grid-template-columns: 1fr;
+            }
+
         }
 
     </style>
@@ -150,233 +205,271 @@
 
 <body>
 
+<div class="layout">
+
+    <!-- SIDEBAR -->
     <jsp:include page="components/sidebar.jsp" />
 
-    <main class="watchlist-page">
+    <!-- MAIN -->
+    <div class="main">
 
-        <div class="page-header">
+        <!-- NAVBAR -->
+        <jsp:include page="components/navbar.jsp" />
 
-            <h1>
-                <i class="fa-solid fa-star text-primary"></i>
-                My Watchlist
-            </h1>
+        <main class="watchlist-page">
 
-            <p>
-                Keep track of stocks you are interested in and monitor their performance.
-            </p>
+            <!-- HERO -->
+            <section class="watchlist-hero">
 
-        </div>
+                <h1 class="watchlist-title">
+
+                    <i class="fa-solid fa-star"></i>
+
+                    My Watchlist
+
+                </h1>
+
+                <p class="watchlist-subtitle">
+                    Keep track of stocks you are interested in
+                    and monitor their performance.
+                </p>
+
+            </section>
 
 
-        <div class="watchlist-card">
+            <!-- WATCHLIST -->
+            <section class="watchlist-box">
 
-            <h4 class="mb-4">
-                Your Stocks
-            </h4>
+                <div class="watchlist-box-header">
+
+                    <h2>
+                        Your Stocks
+                    </h2>
+
+                </div>
 
 
-            <!-- Bajaj Finance -->
+                <!-- BAJAJ -->
 
-            <div class="stock-row">
+                <div class="watchlist-row">
 
-                <div class="stock-info">
+                    <div class="watch-stock">
 
-                    <div class="stock-icon">
-                        BF
+                        <div class="watch-logo">
+                            BF
+                        </div>
+
+                        <div>
+
+                            <span class="watch-name">
+                                Bajaj Finance
+                            </span>
+
+                            <span class="watch-symbol">
+                                BAJFINANCE
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="watch-price">
+                        ₹9,350.00
+                    </div>
+
+                    <div class="watch-change-up">
+                        ↑ 1.24%
                     </div>
 
                     <div>
-                        <div class="stock-name">
-                            Bajaj Finance
-                        </div>
-
-                        <div class="stock-symbol">
-                            BAJFINANCE
-                        </div>
+                        <button class="watch-buy">
+                            Buy
+                        </button>
                     </div>
 
                 </div>
 
 
-                <div class="stock-price">
-                    ₹9,350.00
-                </div>
+                <!-- DR REDDY -->
 
+                <div class="watchlist-row">
 
-                <div class="positive">
-                    ↑ 1.24%
-                </div>
+                    <div class="watch-stock">
 
-
-                <button class="btn-buy">
-                    Buy
-                </button>
-
-            </div>
-
-
-            <!-- Dr Reddy -->
-
-            <div class="stock-row">
-
-                <div class="stock-info">
-
-                    <div class="stock-icon">
-                        DR
-                    </div>
-
-                    <div>
-                        <div class="stock-name">
-                            Dr Reddy's Laboratories
+                        <div class="watch-logo">
+                            DR
                         </div>
 
-                        <div class="stock-symbol">
-                            DRREDDY
+                        <div>
+
+                            <span class="watch-name">
+                                Dr Reddy's Laboratories
+                            </span>
+
+                            <span class="watch-symbol">
+                                DRREDDY
+                            </span>
+
                         </div>
+
                     </div>
 
-                </div>
+                    <div class="watch-price">
+                        ₹6,750.00
+                    </div>
 
-
-                <div class="stock-price">
-                    ₹6,750.00
-                </div>
-
-
-                <div class="negative">
-                    ↓ 0.82%
-                </div>
-
-
-                <button class="btn-buy">
-                    Buy
-                </button>
-
-            </div>
-
-
-            <!-- Reliance -->
-
-            <div class="stock-row">
-
-                <div class="stock-info">
-
-                    <div class="stock-icon">
-                        RI
+                    <div class="watch-change-down">
+                        ↓ 0.82%
                     </div>
 
                     <div>
-                        <div class="stock-name">
-                            Reliance Industries
-                        </div>
-
-                        <div class="stock-symbol">
-                            RELIANCE
-                        </div>
+                        <button class="watch-buy">
+                            Buy
+                        </button>
                     </div>
 
                 </div>
 
 
-                <div class="stock-price">
-                    ₹3,100.00
-                </div>
+                <!-- RELIANCE -->
 
+                <div class="watchlist-row">
 
-                <div class="positive">
-                    ↑ 0.65%
-                </div>
+                    <div class="watch-stock">
 
-
-                <button class="btn-buy">
-                    Buy
-                </button>
-
-            </div>
-
-
-            <!-- HDFC -->
-
-            <div class="stock-row">
-
-                <div class="stock-info">
-
-                    <div class="stock-icon">
-                        HB
-                    </div>
-
-                    <div>
-                        <div class="stock-name">
-                            HDFC Bank
+                        <div class="watch-logo">
+                            RI
                         </div>
 
-                        <div class="stock-symbol">
-                            HDFCBANK
+                        <div>
+
+                            <span class="watch-name">
+                                Reliance Industries
+                            </span>
+
+                            <span class="watch-symbol">
+                                RELIANCE
+                            </span>
+
                         </div>
+
                     </div>
 
-                </div>
+                    <div class="watch-price">
+                        ₹3,100.00
+                    </div>
 
-
-                <div class="stock-price">
-                    ₹1,715.00
-                </div>
-
-
-                <div class="negative">
-                    ↓ 0.31%
-                </div>
-
-
-                <button class="btn-buy">
-                    Buy
-                </button>
-
-            </div>
-
-
-            <!-- TCS -->
-
-            <div class="stock-row">
-
-                <div class="stock-info">
-
-                    <div class="stock-icon">
-                        TC
+                    <div class="watch-change-up">
+                        ↑ 0.65%
                     </div>
 
                     <div>
-                        <div class="stock-name">
-                            Tata Consultancy Services
-                        </div>
-
-                        <div class="stock-symbol">
-                            TCS
-                        </div>
+                        <button class="watch-buy">
+                            Buy
+                        </button>
                     </div>
 
                 </div>
 
 
-                <div class="stock-price">
-                    ₹3,550.00
+                <!-- HDFC -->
+
+                <div class="watchlist-row">
+
+                    <div class="watch-stock">
+
+                        <div class="watch-logo">
+                            HB
+                        </div>
+
+                        <div>
+
+                            <span class="watch-name">
+                                HDFC Bank
+                            </span>
+
+                            <span class="watch-symbol">
+                                HDFCBANK
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="watch-price">
+                        ₹1,715.00
+                    </div>
+
+                    <div class="watch-change-down">
+                        ↓ 0.31%
+                    </div>
+
+                    <div>
+                        <button class="watch-buy">
+                            Buy
+                        </button>
+                    </div>
+
                 </div>
 
 
-                <div class="positive">
-                    ↑ 1.43%
+                <!-- TCS -->
+
+                <div class="watchlist-row">
+
+                    <div class="watch-stock">
+
+                        <div class="watch-logo">
+                            TC
+                        </div>
+
+                        <div>
+
+                            <span class="watch-name">
+                                Tata Consultancy Services
+                            </span>
+
+                            <span class="watch-symbol">
+                                TCS
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="watch-price">
+                        ₹3,550.00
+                    </div>
+
+                    <div class="watch-change-up">
+                        ↑ 1.43%
+                    </div>
+
+                    <div>
+                        <button class="watch-buy">
+                            Buy
+                        </button>
+                    </div>
+
                 </div>
 
+            </section>
 
-                <button class="btn-buy">
-                    Buy
-                </button>
+        </main>
 
-            </div>
+        <!-- FOOTER -->
+        <jsp:include page="components/footer.jsp" />
 
-        </div>
+    </div>
 
-    </main>
+</div>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<script src="js/script.js"></script>
 
 </body>
+
 </html>
