@@ -2,12 +2,6 @@ package com.tradex.controller;
 
 import java.io.IOException;
 
-import com.tradex.dao.PortfolioDAO;
-import com.tradex.dao.TransactionDAO;
-import com.tradex.model.Portfolio;
-import com.tradex.model.Transaction;
-import com.tradex.model.User;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,57 +14,87 @@ public class BuyServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest request,
+    @Override
+    protected void doGet(
+            HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
-        if (session == null) {
+        // User must be logged in
+        if (session == null || session.getAttribute("user") == null) {
+
             response.sendRedirect("index.jsp");
             return;
         }
 
-        User user = (User) session.getAttribute("user");
+        // Mark Buy page as active
+        request.setAttribute("activePage", "buy");
 
-        if (user == null) {
+        // Open Buy page
+        request.getRequestDispatcher("buy.jsp")
+               .forward(request, response);
+    }
+
+
+    @Override
+    protected void doPost(
+            HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+
+        // User must be logged in
+        if (session == null || session.getAttribute("user") == null) {
+
             response.sendRedirect("index.jsp");
             return;
         }
 
-        int userId = user.getUserId();
+        String symbol = request.getParameter("symbol");
+        String quantityString = request.getParameter("quantity");
+        String orderType = request.getParameter("orderType");
 
-        int stockId = Integer.parseInt(request.getParameter("stockId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        double price = Double.parseDouble(request.getParameter("price"));
 
-        double brokerage = price * quantity * 0.002;
-        double tax = price * quantity * 0.001;
-        double total = (price * quantity) + brokerage + tax;
+        int quantity = 1;
 
-        Portfolio portfolio = new Portfolio();
-        portfolio.setUserId(userId);
-        portfolio.setStockId(stockId);
-        portfolio.setQuantity(quantity);
-        portfolio.setAverageBuyPrice(price);
+        try {
 
-        PortfolioDAO portfolioDAO = new PortfolioDAO();
-        portfolioDAO.addStockToPortfolio(portfolio);
+            if (quantityString != null) {
+                quantity = Integer.parseInt(quantityString);
+            }
 
-        Transaction transaction = new Transaction();
-        transaction.setUserId(userId);
-        transaction.setStockId(stockId);
-        transaction.setTransactionType("BUY");
-        transaction.setQuantity(quantity);
-        transaction.setPricePerShare(price);
-        transaction.setBrokerage(brokerage);
-        transaction.setTax(tax);
-        transaction.setTotalAmount(total);
-        transaction.setTransactionStatus("SUCCESS");
+        } catch (NumberFormatException e) {
 
-        TransactionDAO transactionDAO = new TransactionDAO();
-        transactionDAO.saveTransaction(transaction);
+            quantity = 1;
+        }
 
-        response.sendRedirect("MarketServlet");
+
+        // Prevent invalid quantity
+        if (quantity < 1) {
+            quantity = 1;
+        }
+
+
+        /*
+         * For now this is a virtual trading platform.
+         * The actual database transaction can be connected later.
+         */
+
+        request.setAttribute("activePage", "buy");
+
+        request.setAttribute("message",
+                "Buy order placed successfully for "
+                + quantity
+                + " share(s) of "
+                + symbol
+                + ".");
+
+        request.setAttribute("orderType", orderType);
+
+        request.getRequestDispatcher("buy.jsp")
+               .forward(request, response);
     }
 }

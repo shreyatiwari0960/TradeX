@@ -2484,3 +2484,857 @@ font-weight:700;
     border-radius: 22px !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
 }
+
+/* =========================================================
+   BUY STOCKS PAGE
+========================================================= */
+
+.buy-page {
+    padding: 30px;
+    background: #f5f8fd;
+    min-height: calc(100vh - 70px);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.buy-page-header {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow: 0 8px 25px rgba(31, 45, 61, 0.06);
+}
+
+.buy-page-header h1 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 34px;
+
+    font-weight: 800;
+}
+
+.buy-page-header h1 i {
+    color: #2563eb;
+
+    margin-right: 10px;
+}
+
+.buy-page-header p {
+    margin: 7px 0 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+.back-market-btn {
+    text-decoration: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 13px 20px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    transition: 0.2s;
+}
+
+.back-market-btn:hover {
+    background: #1d4ed8;
+
+    color: white;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   MAIN BUY LAYOUT
+========================= */
+
+.buy-layout {
+    display: grid;
+
+    grid-template-columns:
+        1.15fr 0.85fr;
+
+    gap: 22px;
+
+    margin-bottom: 24px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.stock-selection-card,
+.buy-order-card {
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(31, 45, 61, 0.06);
+}
+
+
+.buy-card-title {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.buy-card-title h2 {
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.buy-card-title p {
+    margin: 5px 0 0;
+
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+
+/* =========================
+   MARKET BADGE
+========================= */
+
+.market-live-badge {
+    background: #eafaf1;
+
+    color: #16a34a;
+
+    padding: 7px 11px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+.market-live-badge span {
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #16a34a;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.stock-search-box {
+    height: 48px;
+
+    background: #f5f7fb;
+
+    border: 1px solid #e7ebf2;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 15px;
+
+    margin-bottom: 15px;
+}
+
+.stock-search-box i {
+    color: #94a3b8;
+
+    margin-right: 10px;
+}
+
+.stock-search-box input {
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    width: 100%;
+
+    font-size: 13px;
+
+    color: #111827;
+}
+
+.stock-search-box input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* =========================
+   STOCK OPTIONS
+========================= */
+
+.stock-options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.stock-option {
+    width: 100%;
+
+    border: 1px solid transparent;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.stock-option:hover {
+    background: #f7faff;
+
+    border-color: #dbeafe;
+}
+
+.stock-option.active {
+    background: #eef5ff;
+
+    border-color: #bfdbfe;
+}
+
+
+.stock-option-logo {
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 10px;
+
+    background: #eef4ff;
+
+    color: #2563eb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 800;
+
+    font-size: 12px;
+
+    flex-shrink: 0;
+
+    margin-right: 12px;
+}
+
+
+.stock-option-info {
+    flex: 1;
+}
+
+.stock-option-info strong {
+    display: block;
+
+    color: #111827;
+
+    font-size: 13px;
+}
+
+.stock-option-info small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+.stock-option-price {
+    text-align: right;
+}
+
+.stock-option-price strong {
+    display: block;
+
+    color: #111827;
+
+    font-size: 12px;
+}
+
+.stock-option-price small {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   POSITIVE / NEGATIVE
+========================= */
+
+.buy-page .positive {
+    color: #16a34a !important;
+}
+
+.buy-page .negative {
+    color: #ef4444 !important;
+}
+
+
+/* =========================
+   ORDER ICON
+========================= */
+
+.order-icon {
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 12px;
+
+    background: #eef5ff;
+
+    color: #2563eb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================
+   SELECTED STOCK
+========================= */
+
+.selected-stock {
+    background: #f7faff;
+
+    border: 1px solid #e4edfc;
+
+    border-radius: 14px;
+
+    padding: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+.selected-stock-logo {
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 11px;
+
+    background: #2563eb;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 800;
+
+    font-size: 13px;
+}
+
+
+.selected-stock > div:nth-child(2) {
+    flex: 1;
+}
+
+.selected-stock strong {
+    display: block;
+
+    color: #111827;
+
+    font-size: 14px;
+}
+
+.selected-stock span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+.selected-price {
+    text-align: right;
+}
+
+.selected-price small {
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    margin-bottom: 3px;
+}
+
+.selected-price strong {
+    font-size: 14px;
+}
+
+
+/* =========================
+   ORDER FIELDS
+========================= */
+
+.order-field {
+    margin-bottom: 18px;
+}
+
+.order-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.order-field select {
+    width: 100%;
+
+    height: 45px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 9px;
+
+    padding: 0 12px;
+
+    background: #ffffff;
+
+    color: #334155;
+
+    outline: none;
+}
+
+
+/* =========================
+   QUANTITY
+========================= */
+
+.quantity-control {
+    height: 45px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.quantity-control button {
+    width: 45px;
+
+    height: 100%;
+
+    border: none;
+
+    background: #f8fafc;
+
+    color: #2563eb;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+.quantity-control button:hover {
+    background: #eef5ff;
+}
+
+.quantity-control input {
+    flex: 1;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    text-align: center;
+
+    font-weight: 700;
+
+    color: #111827;
+}
+
+
+/* =========================
+   BALANCE
+========================= */
+
+.balance-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 13px 0;
+
+    border-top: 1px solid #edf1f7;
+
+    border-bottom: 1px solid #edf1f7;
+
+    margin-bottom: 15px;
+}
+
+.balance-row span {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.balance-row strong {
+    color: #111827;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   ORDER SUMMARY
+========================= */
+
+.order-summary {
+    background: #f8fafc;
+
+    border-radius: 12px;
+
+    padding: 14px;
+
+    margin-bottom: 16px;
+}
+
+.order-summary > div {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+}
+
+.order-summary > div:last-child {
+    margin-bottom: 0;
+}
+
+.order-summary span {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.order-summary strong {
+    color: #334155;
+
+    font-size: 12px;
+}
+
+.order-summary .total-row {
+    border-top: 1px solid #e2e8f0;
+
+    padding-top: 11px;
+
+    margin-top: 5px;
+}
+
+.order-summary .total-row strong {
+    color: #111827;
+
+    font-size: 16px;
+}
+
+
+/* =========================
+   BUY BUTTON
+========================= */
+
+.place-buy-btn {
+    width: 100%;
+
+    height: 50px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition: 0.2s;
+}
+
+.place-buy-btn:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(37, 99, 235, 0.22);
+}
+
+
+/* =========================
+   NOTE
+========================= */
+
+.order-note {
+    text-align: center;
+
+    margin: 12px 0 0;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+.order-note i {
+    margin-right: 3px;
+}
+
+
+/* =========================
+   INFO CARDS
+========================= */
+
+.buy-info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+
+.buy-info-card {
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(31, 45, 61, 0.05);
+}
+
+
+.buy-info-icon {
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.buy-info-icon.blue {
+    background: #eaf2ff;
+
+    color: #2563eb;
+}
+
+.buy-info-icon.green {
+    background: #eafaf1;
+
+    color: #16a34a;
+}
+
+.buy-info-icon.purple {
+    background: #f2eaff;
+
+    color: #7c3aed;
+}
+
+
+.buy-info-card h3 {
+    margin: 0 0 5px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    color: #111827;
+}
+
+.buy-info-card p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+    .buy-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .buy-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .buy-page {
+        padding: 15px;
+    }
+
+    .buy-page-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+    }
+
+    .buy-page-header h1 {
+        font-size: 28px;
+    }
+
+    .stock-selection-card,
+    .buy-order-card {
+        padding: 18px;
+    }
+
+    .selected-price {
+        display: none;
+    }
+
+}
