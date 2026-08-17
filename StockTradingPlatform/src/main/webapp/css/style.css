@@ -730,6 +730,8 @@ border-bottom:1px solid #E5E7EB;
 
 }
 
+
+
 .stock-table tr:hover{
 
 background:#F8FAFC;
@@ -3335,6 +3337,559 @@ font-weight:700;
 
     .selected-price {
         display: none;
+    }
+
+}
+
+/* =========================================================
+   SELL STOCKS PAGE
+========================================================= */
+
+.sell-page {
+    background: #f4f7fc;
+    min-height: calc(100vh - 70px);
+    padding: 40px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.sell-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.sell-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sell-title h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 800;
+    color: #111a2e;
+}
+
+.sell-title-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: #eaf1ff;
+    color: #2864ed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.sell-header p {
+    margin: 8px 0 0 74px;
+    color: #7182a0;
+    font-size: 17px;
+}
+
+
+/* =========================
+   MARKET STATUS
+========================= */
+
+.market-status {
+    background: #e9fff4;
+    color: #079653;
+    padding: 11px 18px;
+    border-radius: 30px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    background: #13ad60;
+    border-radius: 50%;
+}
+
+
+/* =========================
+   SUCCESS MESSAGE
+========================= */
+
+.sell-success {
+    background: #e9fff4;
+    border: 1px solid #b9efd1;
+    color: #087a43;
+    padding: 15px 20px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.sell-success i {
+    margin-right: 8px;
+}
+
+
+/* =========================
+   COMMON CARD
+========================= */
+
+.sell-card,
+.sell-order-card,
+.info-card {
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(30, 55, 90, 0.07);
+}
+
+
+/* =========================
+   STOCK SELECTION
+========================= */
+
+.sell-card {
+    padding: 30px;
+    margin-bottom: 26px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: #13203a;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.section-heading p {
+    color: #7182a0;
+    margin: 7px 0 22px;
+}
+
+
+.sell-stock-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+
+.sell-stock-card {
+    border: 1px solid #e1e7f0;
+    border-radius: 17px;
+    padding: 20px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    background: #fff;
+}
+
+.sell-stock-card:hover {
+    transform: translateY(-3px);
+    border-color: #2864ed;
+    box-shadow: 0 10px 25px rgba(40, 100, 237, 0.1);
+}
+
+.sell-stock-card.selected {
+    border: 2px solid #2864ed;
+    background: #eff5ff;
+}
+
+
+.stock-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+
+.stock-logo,
+.selected-stock-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    background: #edf4ff;
+    color: #2864ed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+
+
+.stock-change {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.stock-change.positive {
+    color: #079653;
+}
+
+.stock-change.negative {
+    color: #e32736;
+}
+
+
+.sell-stock-card h3 {
+    font-size: 16px;
+    color: #14203a;
+    margin: 0 0 5px;
+    font-weight: 750;
+}
+
+.sell-stock-card p {
+    color: #8796af;
+    font-size: 13px;
+    margin: 0 0 18px;
+}
+
+
+.stock-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.stock-bottom strong {
+    font-size: 18px;
+    color: #13203a;
+}
+
+.stock-bottom span {
+    color: #2864ed;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   BOTTOM GRID
+========================= */
+
+.sell-bottom-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 0.85fr);
+    gap: 26px;
+}
+
+
+/* =========================
+   ORDER CARD
+========================= */
+
+.sell-order-card {
+    padding: 30px;
+}
+
+.order-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.order-title i {
+    color: #2864ed;
+    font-size: 25px;
+}
+
+.order-title h2 {
+    margin: 0;
+    color: #13203a;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+
+.selected-stock {
+    margin: 25px 0;
+    background: #f5f8fd;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.selected-stock h3 {
+    margin: 0;
+    font-size: 17px;
+    color: #14203a;
+}
+
+.selected-stock p {
+    margin: 4px 0 0;
+    color: #8796af;
+    font-size: 13px;
+}
+
+.selected-price {
+    margin-left: auto;
+    text-align: right;
+}
+
+.selected-price span {
+    display: block;
+    color: #8796af;
+    font-size: 12px;
+}
+
+.selected-price strong {
+    color: #13203a;
+    font-size: 18px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #536681;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.form-group small {
+    color: #8796af;
+    margin-top: 7px;
+    display: block;
+}
+
+
+.quantity-control {
+    display: flex;
+    border: 1px solid #dce3ee;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 48px;
+}
+
+.quantity-control button {
+    width: 48px;
+    border: none;
+    background: #f2f5fa;
+    color: #2864ed;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.quantity-control input {
+    width: 100%;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    outline: none;
+}
+
+
+.form-group select {
+    width: 100%;
+    height: 48px;
+    border: 1px solid #dce3ee;
+    border-radius: 12px;
+    padding: 0 14px;
+    font-size: 15px;
+    color: #24324a;
+    background: #fff;
+}
+
+
+/* =========================
+   ORDER SUMMARY
+========================= */
+
+.order-summary {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 15px;
+    background: #f7f9fc;
+}
+
+.order-summary > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    color: #70809b;
+}
+
+.order-summary strong {
+    color: #18243a;
+}
+
+.order-summary .total {
+    border-top: 1px solid #dfe5ee;
+    margin-top: 8px;
+    padding-top: 15px;
+    font-size: 17px;
+}
+
+.order-summary .total strong {
+    font-size: 20px;
+    color: #e32736;
+}
+
+
+/* =========================
+   SELL BUTTON
+========================= */
+
+.sell-button {
+    width: 100%;
+    border: none;
+    background: #e32736;
+    color: white;
+    border-radius: 12px;
+    padding: 14px;
+    margin-top: 22px;
+    font-size: 16px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.sell-button:hover {
+    background: #c91f2d;
+    transform: translateY(-1px);
+}
+
+
+.simulation-note {
+    text-align: center;
+    color: #8796af;
+    font-size: 13px;
+    margin-top: 14px;
+}
+
+.simulation-note i {
+    margin-right: 5px;
+}
+
+
+/* =========================
+   INFO CARDS
+========================= */
+
+.sell-info-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    padding: 25px;
+}
+
+.info-icon {
+    width: 46px;
+    height: 46px;
+    background: #edf4ff;
+    color: #2864ed;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 17px;
+    font-size: 20px;
+}
+
+.info-card h3 {
+    color: #13203a;
+    font-size: 19px;
+    font-weight: 750;
+    margin-bottom: 8px;
+}
+
+.info-card p {
+    color: #7182a0;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.info-value {
+    margin-top: 15px;
+    color: #2864ed;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.security-info .info-icon {
+    color: #079653;
+    background: #eafff3;
+}
+
+.performance-info .info-icon {
+    color: #7a3df0;
+    background: #f2eaff;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+
+    .sell-stock-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .sell-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sell-stock-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .sell-page {
+        padding: 20px;
+    }
+
+    .sell-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .sell-title h1 {
+        font-size: 32px;
+    }
+
+    .sell-header p {
+        margin-left: 0;
+    }
+
+    .sell-stock-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
     }
 
 }
