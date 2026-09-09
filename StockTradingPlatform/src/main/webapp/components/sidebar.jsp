@@ -1,6 +1,8 @@
 <aside class="sidebar">
 
-    <!-- LOGO -->
+    <!-- =========================
+         LOGO
+    ========================== -->
 
     <div class="logo">
 
@@ -11,7 +13,9 @@
     </div>
 
 
-    <!-- NAVIGATION -->
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
 
     <ul>
 
@@ -124,7 +128,7 @@
                     ? "active"
                     : "" %>">
 
-            <a href="#">
+            <a href="TransactionServlet">
 
                 <i class="fa-solid fa-clock-rotate-left"></i>
 
@@ -199,6 +203,7 @@
             </a>
 
         </li>
+
 
     </ul>
 

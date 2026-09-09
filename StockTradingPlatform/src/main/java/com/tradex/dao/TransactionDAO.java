@@ -2,6 +2,9 @@ package com.tradex.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.tradex.model.Transaction;
 import com.tradex.utility.DBConnection;
@@ -11,10 +14,12 @@ public class TransactionDAO {
     private Connection con;
 
     public TransactionDAO() {
-
         con = DBConnection.getConnection();
-
     }
+
+    // ================================
+    // SAVE TRANSACTION
+    // ================================
 
     public boolean saveTransaction(Transaction transaction) {
 
@@ -22,7 +27,11 @@ public class TransactionDAO {
 
         try {
 
-            String sql = "INSERT INTO transactions(user_id, stock_id, transaction_type, quantity, price_per_share, brokerage, tax, total_amount, transaction_status) VALUES(?,?,?,?,?,?,?,?,?)";
+            String sql =
+                "INSERT INTO transactions " +
+                "(user_id, stock_id, transaction_type, quantity, " +
+                "price_per_share, brokerage, tax, total_amount, transaction_status) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -38,21 +47,100 @@ public class TransactionDAO {
 
             int rows = ps.executeUpdate();
 
-            if(rows > 0) {
-
+            if (rows > 0) {
                 status = true;
-
             }
 
+            ps.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch(Exception e) {
+
+        return status;
+    }
+
+
+    // ================================
+    // GET USER TRANSACTIONS
+    // ================================
+
+    public List<Transaction> getTransactionsByUser(int userId) {
+
+        List<Transaction> transactions = new ArrayList<>();
+
+        try {
+
+            String sql =
+                "SELECT transaction_id, user_id, stock_id, " +
+                "transaction_type, quantity, price_per_share, " +
+                "brokerage, tax, total_amount, transaction_status " +
+                "FROM transactions " +
+                "WHERE user_id = ? " +
+                "ORDER BY transaction_id DESC";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, userId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Transaction transaction = new Transaction();
+
+                transaction.setTransactionId(
+                    rs.getInt("transaction_id")
+                );
+
+                transaction.setUserId(
+                    rs.getInt("user_id")
+                );
+
+                transaction.setStockId(
+                    rs.getInt("stock_id")
+                );
+
+                transaction.setTransactionType(
+                    rs.getString("transaction_type")
+                );
+
+                transaction.setQuantity(
+                    rs.getInt("quantity")
+                );
+
+                transaction.setPricePerShare(
+                    rs.getDouble("price_per_share")
+                );
+
+                transaction.setBrokerage(
+                    rs.getDouble("brokerage")
+                );
+
+                transaction.setTax(
+                    rs.getDouble("tax")
+                );
+
+                transaction.setTotalAmount(
+                    rs.getDouble("total_amount")
+                );
+
+                transaction.setTransactionStatus(
+                    rs.getString("transaction_status")
+                );
+
+                transactions.add(transaction);
+            }
+
+            rs.close();
+            ps.close();
+
+        } catch (Exception e) {
 
             e.printStackTrace();
 
         }
 
-        return status;
-
+        return transactions;
     }
-
 }

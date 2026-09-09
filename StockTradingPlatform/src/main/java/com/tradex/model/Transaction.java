@@ -5,15 +5,24 @@ public class Transaction {
     private int transactionId;
     private int userId;
     private int stockId;
+
     private String transactionType;
+
     private int quantity;
+
     private double pricePerShare;
     private double brokerage;
     private double tax;
     private double totalAmount;
+
     private String transactionStatus;
 
+    // Stock information for displaying transaction history
+    private String companyName;
+    private String symbol;
+
     public Transaction() {
+
     }
 
     public int getTransactionId() {
@@ -96,4 +105,19 @@ public class Transaction {
         this.transactionStatus = transactionStatus;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 }
