@@ -1,8 +1,6 @@
 <aside class="sidebar">
 
-    <!-- =========================
-         LOGO
-    ========================== -->
+    <!-- LOGO -->
 
     <div class="logo">
 
@@ -13,9 +11,7 @@
     </div>
 
 
-    <!-- =========================
-         NAVIGATION
-    ========================== -->
+    <!-- NAVIGATION -->
 
     <ul>
 
@@ -23,8 +19,7 @@
         <!-- DASHBOARD -->
 
         <li class="<%= "dashboard".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
             <a href="DashboardServlet">
 
@@ -37,11 +32,11 @@
         </li>
 
 
+
         <!-- PORTFOLIO -->
 
         <li class="<%= "portfolio".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
             <a href="PortfolioServlet">
 
@@ -54,11 +49,11 @@
         </li>
 
 
+
         <!-- MARKET -->
 
         <li class="<%= "market".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
             <a href="MarketServlet">
 
@@ -71,11 +66,11 @@
         </li>
 
 
+
         <!-- WATCHLIST -->
 
         <li class="<%= "watchlist".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
             <a href="WatchlistServlet">
 
@@ -88,11 +83,11 @@
         </li>
 
 
+
         <!-- BUY STOCKS -->
 
         <li class="<%= "buy".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
             <a href="BuyServlet">
 
@@ -105,11 +100,11 @@
         </li>
 
 
+
         <!-- SELL STOCKS -->
 
         <li class="<%= "sell".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
             <a href="SellServlet">
 
@@ -122,11 +117,11 @@
         </li>
 
 
+
         <!-- TRANSACTIONS -->
 
         <li class="<%= "transactions".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
             <a href="TransactionServlet">
 
@@ -139,11 +134,11 @@
         </li>
 
 
+
         <!-- ANALYTICS -->
 
         <li class="<%= "analytics".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
             <a href="AnalyticsServlet">
 
@@ -156,13 +151,13 @@
         </li>
 
 
+
         <!-- PROFILE -->
 
         <li class="<%= "profile".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
-            <a href="#">
+            <a href="ProfileServlet">
 
                 <i class="fa-solid fa-user"></i>
 
@@ -173,11 +168,11 @@
         </li>
 
 
+
         <!-- SETTINGS -->
 
         <li class="<%= "settings".equals(request.getAttribute("activePage"))
-                    ? "active"
-                    : "" %>">
+                    ? "active" : "" %>">
 
             <a href="#">
 
@@ -188,6 +183,7 @@
             </a>
 
         </li>
+
 
 
         <!-- LOGOUT -->
