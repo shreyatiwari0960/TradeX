@@ -145,7 +145,7 @@
                     ? "active"
                     : "" %>">
 
-            <a href="#">
+            <a href="AnalyticsServlet">
 
                 <i class="fa-solid fa-chart-pie"></i>
 
