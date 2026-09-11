@@ -23,6 +23,8 @@ public class User {
     private String status;
 
     private Timestamp lastLogin;
+    
+    private double balance;
 
     // Default Constructor
     public User() {
@@ -127,5 +129,13 @@ public class User {
 
     public void setLastLogin(Timestamp lastLogin) {
         this.lastLogin = lastLogin;
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

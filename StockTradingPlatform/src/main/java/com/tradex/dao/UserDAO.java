@@ -15,14 +15,17 @@ public class UserDAO {
         con = DBConnection.getConnection();
     }
 
-    // Register New User
+    // =========================================================
+    // REGISTER NEW USER
+    // =========================================================
     public boolean registerUser(User user) {
 
         boolean status = false;
 
         try {
 
-            String sql = "INSERT INTO users(full_name, username, email, password, phone) VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO users(full_name, username, email, password, phone, balance) "
+                       + "VALUES(?,?,?,?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -32,20 +35,30 @@ public class UserDAO {
             ps.setString(4, user.getPassword());
             ps.setString(5, user.getPhone());
 
+            // Initial virtual trading balance
+            ps.setDouble(6, 240000.00);
+
             int rows = ps.executeUpdate();
 
             if (rows > 0) {
                 status = true;
             }
 
+            ps.close();
+
         } catch (Exception e) {
+
             e.printStackTrace();
+
         }
 
         return status;
     }
 
-    // Login
+
+    // =========================================================
+    // LOGIN
+    // =========================================================
     public User loginUser(String email, String password) {
 
         User user = null;
@@ -74,17 +87,26 @@ public class UserDAO {
                 user.setProfilePhoto(rs.getString("profile_photo"));
                 user.setStatus(rs.getString("status"));
 
+                // Load virtual wallet balance
+                user.setBalance(rs.getDouble("balance"));
             }
 
+            rs.close();
+            ps.close();
+
         } catch (Exception e) {
+
             e.printStackTrace();
+
         }
 
         return user;
-
     }
 
-    // Check Email Exists
+
+    // =========================================================
+    // CHECK EMAIL EXISTS
+    // =========================================================
     public boolean emailExists(String email) {
 
         try {
@@ -98,8 +120,15 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+
+                rs.close();
+                ps.close();
+
                 return true;
             }
+
+            rs.close();
+            ps.close();
 
         } catch (Exception e) {
 
@@ -108,10 +137,12 @@ public class UserDAO {
         }
 
         return false;
-
     }
 
-    // Check Username Exists
+
+    // =========================================================
+    // CHECK USERNAME EXISTS
+    // =========================================================
     public boolean usernameExists(String username) {
 
         try {
@@ -126,9 +157,14 @@ public class UserDAO {
 
             if (rs.next()) {
 
-                return true;
+                rs.close();
+                ps.close();
 
+                return true;
             }
+
+            rs.close();
+            ps.close();
 
         } catch (Exception e) {
 
@@ -137,7 +173,6 @@ public class UserDAO {
         }
 
         return false;
-
     }
 
 }
